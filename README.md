@@ -1,2 +1,2 @@
 # CycleGAN
-for de-noising in Low-dose CBCT
+2D and 2.5D network-based denoising in low-dose CBCT
