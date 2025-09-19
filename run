@@ -1,0 +1,43 @@
+python train.py ^
+--dataroot D:/우성_Denoising_Main_____Endo_fulldataset/De_noising_1st(high_dose)/De_noising_original/Data/Use_data ^
+--name Plain_original_1st ^
+--model cycle_gan ^
+--pool_size 0 ^
+--no_dropout ^
+--dataset_mode Dental_LD ^
+--loadSize 400 ^
+--fineSize 256 ^ #paper: 56
+--display_winsize 64 ^ #256
+--batchSize 25 ^ #paper: 10
+--input_nc 1 ^
+--output_nc 1 ^
+--gpu_ids 0,1 ^
+--norm batch ^ #instance
+--init_type normal ^
+--identity 0.5 ^
+--niter 100 ^
+--niter_decay 60 ^
+--which_model_netG resnet_6blocks ^ # resnet_6blocks #paper: myLDnet
+--ngf 64 ^ # paper: 128
+--display_port 8097 ^
+
+--Normal_Option true ^
+opt.continue_train true
+opt.which_epoch latest
+
+
+
+
+python train.py --dataroot D:/우성_Denoising_Main_____Endo_fulldataset/De_noising_1st(high_dose)/De_noising_original/Data/Use_data  --name Plain_origina_3090_1st --model cycle_gan --pool_size 0 --no_dropout --dataset_mode Dental_LD --loadSize 400 --fineSize 256 --display_winsize 64 --batchSize 25 --input_nc 1 --output_nc 1 --gpu_ids 0,1 --norm batch --init_type normal --identity 0.5 --niter 100 --niter_decay 60 --which_model_netG resnet_6blocks --ngf 64 --display_port 8097 --Normal_Option
+
+python -m visdom.server -port 8097
+
+python test.py --dataroot D:/우성_Denoising_Main_____Endo_fulldataset/De_noising_1st(high_dose)/De_noising_original/Data/Use_data --name Plain_origina_3090_1st --model cycle_gan --no_dropout --dataset_mode Dental_LD --which_model_netG resnet_6blocks --Normal_Option --norm batch --gpu_ids 1
+
+####residual
+
+python train.py --dataroot D:/우성_Denoising_Main_____Endo_fulldataset/De_noising_1st(high_dose)/De_noising_original/Data/Use_data  --name Resi_origina_3090_2nd --model cycle_gan --pool_size 0 --no_dropout --dataset_mode Dental_LD --loadSize 400 --fineSize 256 --display_winsize 64 --batchSize 25 --input_nc 1 --output_nc 1 --gpu_ids 0,1 --norm batch --init_type normal --identity 0.5 --niter 100 --niter_decay 60 --which_model_netG resnet_6blocks --ngf 64 --display_port 8097 --Normal_Option --Residual_L
+
+python -m visdom.server -port 8097
+
+python test.py --name Resi_origina_3090_1st --model cycle_gan --no_dropout --dataset_mode Dental_LD --which_model_netG resnet_6blocks --Normal_Option --norm batch --gpu_ids 1 --Residual_L
